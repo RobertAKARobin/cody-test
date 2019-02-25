@@ -1,0 +1,19 @@
+{
+  "name": "cody",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobertAKARobin/cody-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobertAKARobin/cody-test/issues"
+  },
+  "homepage": "https://github.com/RobertAKARobin/cody-test#readme"
+}
