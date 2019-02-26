@@ -13,7 +13,7 @@ const _test = function(description, suite){
 		pass: 0,
 		fail: 0
 	}
-	const _ = function(aInput, test, bInput){
+	const _assert = function(aInput, test, bInput){
 		count.total += 1
 
 		const aLog = (aInput instanceof Function ? stripFunctionText(aInput) : aInput)
@@ -22,14 +22,14 @@ const _test = function(description, suite){
 			.replace(/\ba\b/g, aLog)
 			.replace(/\bb\b/g, bLog)
 
-		let aValue, bValue, didPass, fatalError, logStyle
+		let aValue, bValue, didPass, fatalError
 		try{
 			aValue = (aInput instanceof Function ? aInput() : aInput)
 			bValue = (bInput instanceof Function ? bInput() : bInput)
 			if(test(aValue, bValue)){
 				didPass = true
 			}else{
-				throw 'fail'
+				throw new Error('fail')
 			}
 		}catch(e){
 			didPass = false
@@ -43,15 +43,19 @@ const _test = function(description, suite){
 			}else{
 				count.fail += 1
 				console.log(`%c${count.total}.) ${testLog}`, style.fail)
-				if (aInput instanceof Function || bInput instanceof Function) {
-					console.log(aInput instanceof Function ? `\t${aLog}: ${aValue}` : `\t${aValue}`)
-					console.log(bInput instanceof Function ? `\t${bLog}: ${bValue}` : `\t${bValue}`)
+				if(fatalError){
+					console.log(fatalError)
+				}else{
+					if (aInput instanceof Function || bInput instanceof Function) {
+						console.log(aInput instanceof Function ? `\t${aLog}: ${aValue}` : `\t${aValue}`)
+						console.log(bInput instanceof Function ? `\t${bLog}: ${bValue}` : `\t${bValue}`)
+					}
 				}
 			}
 		}
 	}
 
-	suite(_)
+	suite(_assert)
 	console.log(`%cFAILS: ${count.fail}`, style.fail)
 	console.log(`TOTAL: ${count.total}`)
 }
