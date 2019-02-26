@@ -32,20 +32,13 @@ const _test = (function(){
 				.replace(/\ba\b/g, aLog)
 				.replace(/\bb\b/g, bLog)
 
-			let aValue, bValue, didPass, fatalError
+			let aValue, bValue, didPass = false, fatalError
 			try{
 				aValue = (aInput instanceof Function ? aInput() : aInput)
 				bValue = (bInput instanceof Function ? bInput() : bInput)
-				if(test(aValue, bValue)){
-					didPass = true
-				}else{
-					throw new Error('fail')
-				}
+				didPass = test(aValue, bValue)
 			}catch(e){
-				didPass = false
-				if(e.message !== 'fail'){
-					fatalError = e
-				}
+				fatalError = e
 			}finally{
 				if(didPass){
 					count.pass += 1
