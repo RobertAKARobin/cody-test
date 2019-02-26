@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>Robin Spec</title>
 		<script src="./robin-spec.js"></script>
 		<script src="./tests.js"></script>
+		<style>
+tr > *{
+	border-bottom:1px solid #ccc;
+	padding:5px 0 5px 10px;
+}
+tr > *:nth-child(1){
+	padding-left:0;
+}
+code, pre{
+	background-color:#eee;
+	border-radius:3px;
+	padding:3px;
+}
+code{
+	display:inline-block;
+}
+		</style>
 	</head>
 	<body>
+		<table>
+			<tr>
+				<th>Given <code>a test b</code>, I want to know...</th>
+				<td><code>robin.family.every(member => ThomasFamily.members.includes(member))</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>a</code> value's origin?</td>
+				<td><code>robin.family</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>a</code> value?</td>
+				<td><code>["Arielle", "Charlie", "James"]</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>b</code> value's origin?</td>
+				<td><code>ThomasFamily.members</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>b</code> value?</td>
+				<td><code>["Arielle", "Robin", "Charlie", "James"]</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>test</code>?</td>
+				<td><code>a.every(member => b.includes(member))</code></td>
+			</tr>
+			<tr>
+				<td>What is the <code>test</code> result?</td>
+				<td><code>true</code></td>
+			</tr>
+		</table>
 	</body>
 </html>
