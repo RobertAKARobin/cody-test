@@ -1,8 +1,8 @@
 const style = {
-	highlight: 'background-color:#ffff00',
+	highlight: 'background-color:#ffff00; font-weight:bold',
 	test: 'font-weight:bold',
-	pass: 'background-color:#00ff00',
-	fail: 'background-color:#ff0000; color:#ffffff'
+	pass: '',
+	fail: 'color:#f00; font-weight:bold'
 }
 
 const _test = function(description, suite){
@@ -21,34 +21,39 @@ const _test = function(description, suite){
 		const testLog = stripFunctionText(test)
 			.replace(/\ba\b/g, aLog)
 			.replace(/\bb\b/g, bLog)
-		
-		console.log(`%c${count.total}.) ${testLog}`, style.test)
 
-		let aValue, bValue, testResult
+		let aValue, bValue, didPass, fatalError, logStyle
 		try{
 			aValue = (aInput instanceof Function ? aInput() : aInput)
 			bValue = (bInput instanceof Function ? bInput() : bInput)
-			testResult = test(aValue, bValue)
-			if(testResult === true){
-				count.pass += 1
+			if(test(aValue, bValue)){
+				didPass = true
 			}else{
-				throw new Error()
+				throw 'fail'
 			}
 		}catch(e){
-			count.fail += 1
-			console.log(`\t%cFAIL`, style.fail)
-			if(aInput instanceof Function || bInput instanceof Function){
-				console.log(aInput instanceof Function ? `\t${aLog}: ${aValue}` : `\t${aValue}`)
-				console.log(bInput instanceof Function ? `\t${bLog}: ${bValue}` : `\t${bValue}`)
+			didPass = false
+			if(e.message !== 'fail'){
+				fatalError = e
+			}
+		}finally{
+			if(didPass){
+				count.pass += 1
+				console.log(`%c${count.total}.) ${testLog}`, style.pass)
+			}else{
+				count.fail += 1
+				console.log(`%c${count.total}.) ${testLog}`, style.fail)
+				if (aInput instanceof Function || bInput instanceof Function) {
+					console.log(aInput instanceof Function ? `\t${aLog}: ${aValue}` : `\t${aValue}`)
+					console.log(bInput instanceof Function ? `\t${bLog}: ${bValue}` : `\t${bValue}`)
+				}
 			}
 		}
 	}
 
 	suite(_)
-	console.log(`%cTOTAL PASS: ${count.pass}`, style.pass)
-	if(count.fail > 0){
-		console.log(`%cTOTAL FAIL: ${count.fail} / ${count.total}`, style.fail)
-	}
+	console.log(`%cFAILS: ${count.fail}`, style.fail)
+	console.log(`TOTAL: ${count.total}`)
 }
 
 const stripFunctionText = function(inputFunction){
