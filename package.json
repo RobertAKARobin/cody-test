@@ -1,5 +1,5 @@
 {
-  "name": "cody",
+  "name": "robin-spec",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RobertAKARobin/cody-test.git"
+    "url": "git+https://github.com/RobertAKARobin/robin-spec.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RobertAKARobin/cody-test/issues"
+    "url": "https://github.com/RobertAKARobin/robin-spec/issues"
   },
-  "homepage": "https://github.com/RobertAKARobin/cody-test#readme"
+  "homepage": "https://github.com/RobertAKARobin/robin-spec#readme"
 }
